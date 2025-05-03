@@ -17,7 +17,8 @@ page = st.sidebar.radio("Go to", ["Itinerary", "Add Protection Confirmation"])
 
 # Show Itinerary Page
 if page == "Itinerary":
-    st.markdown("**Traveller:** {}  \n**Booking Ref:** `{}`".format(
+    st.markdown("**Traveller:** {}  
+**Booking Ref:** `{}`".format(
         itinerary['traveller_name'], itinerary['booking_reference']))
     st.markdown("---")
 
@@ -47,23 +48,28 @@ if page == "Itinerary":
     st.info("You're travelling internationally with a long overnight layover. We recommend the following add-ons:")
 
     col1, col2, col3 = st.columns(3)
+    if "protection" not in st.session_state:
+        st.session_state.protection = ""
+    if "confirmation" not in st.session_state:
+        st.session_state.confirmation = ""
+
     with col1:
         if st.button("Add Travel Delay Cover ($12)"):
             st.session_state.protection = "Travel Delay"
             st.session_state.confirmation = "Travel Delay Cover added for $12."
-            st.experimental_set_query_params(page="Add Protection Confirmation")
+            st.query_params["page"] = "Add Protection Confirmation"
 
     with col2:
         if st.button("Add Medical Cover ($29)"):
             st.session_state.protection = "Medical"
             st.session_state.confirmation = "International Medical Cover added for $29."
-            st.experimental_set_query_params(page="Add Protection Confirmation")
+            st.query_params["page"] = "Add Protection Confirmation"
 
     with col3:
         if st.button("Add Baggage Cover ($9)"):
             st.session_state.protection = "Baggage"
             st.session_state.confirmation = "Baggage Protection added for $9."
-            st.experimental_set_query_params(page="Add Protection Confirmation")
+            st.query_params["page"] = "Add Protection Confirmation"
 
 # Confirmation Page
 elif page == "Add Protection Confirmation":
@@ -72,4 +78,4 @@ elif page == "Add Protection Confirmation":
     st.markdown(f"**{confirmation}**")
     st.markdown("You can now travel with peace of mind knowing Roos has your back.")
     if st.button("← Back to Itinerary"):
-        st.experimental_set_query_params(page="Itinerary")
+        st.query_params["page"] = "Itinerary"
