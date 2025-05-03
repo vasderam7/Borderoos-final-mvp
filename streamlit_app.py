@@ -17,8 +17,7 @@ page = st.sidebar.radio("Go to", ["Itinerary", "Add Protection Confirmation"])
 
 # Show Itinerary Page
 if page == "Itinerary":
-    st.markdown("**Traveller:** {}  
-**Booking Ref:** `{}`".format(
+    st.markdown("**Traveller:** {}  \n**Booking Ref:** `{}`".format(
         itinerary['traveller_name'], itinerary['booking_reference']))
     st.markdown("---")
 
